@@ -19,11 +19,44 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var product = context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
                 var productPictures = context.ProductPicture.Where(x => x.ProductId == id).ToList();
+                var comments = context.Comments.Where(x => x.ProductId == product.Id).ToList();
+
+
+                decimal ratingSum = 0;
+                int ratingCount = 0;
+
+                List<CommentDTO> commentResult = new();
+
+                for (int i = 0; i < comments.Count; i++)
+                {
+                    CommentDTO comment = new()
+                    {
+                        ProductId = product.Id,
+                        UserName = comments[i].UserName,
+                        UserEmail = comments[i].UserEmail,
+                        Review = comments[i].Review,
+                        Ratings = comments[i].Ratings
+                    };
+                    commentResult.Add(comment);
+                }
+
                 List<string> pictures = new();
                 foreach (var picture in productPictures)
                 {
                     pictures.Add(picture.PhotoUrl);
                 }
+
+                foreach (var rating in comments.Where(x=>x.Ratings != 0))
+                {
+                    ratingCount++;
+                    ratingSum += rating.Ratings;
+                }
+
+                if (ratingCount == 0)
+                    ratingSum = 0;
+                else
+                    ratingSum = ratingSum / ratingCount;
+
                 ProductDTO result = new()
                 {
                     Id = product.Id,
@@ -36,6 +69,8 @@ namespace DataAccess.Concrete.EntityFramework
                     ProductPictures = pictures,
                     CoverPhoto = product.CoverPhoto,
                     IsSlider = product.IsSlider,
+                    Rating = Math.Round(ratingSum, 1),
+                    Comments = commentResult,
                 };
                 return result;
             }

@@ -13,14 +13,17 @@ namespace Business.Concrete
     public class ProductManager : IProductManager
     {
         private readonly IProductDal _productDal;
+        private readonly IProductPictureManager _productPictureManager;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, IProductPictureManager productPictureManager)
         {
             _productDal = productDal;
+            _productPictureManager = productPictureManager;
         }
 
         public void AddProduct(AddProductDTO productDTO)
         {
+            
             Product product = new()
             {
                 Name = productDTO.Name,
@@ -28,9 +31,19 @@ namespace Business.Concrete
                 Description = productDTO.Description,
                 Price = productDTO.Price,
                 SKU = productDTO.SKU,
-                Summary = productDTO.Summary
+                Summary = productDTO.Summary,
+                CoverPhoto = productDTO.CoverPhoto,
             };
             _productDal.Add(product);
+            
+
+            for (int i = 0; i < productDTO.ProductPicture.Count; i++)
+            {
+                productDTO.ProductPicture[i].ProductId = product.Id;
+                _productPictureManager.AddProductPicture(productDTO.ProductPicture[i]);
+            }
+            
+            
         }
 
         public List<ProductDTO> GetAllProductList()
