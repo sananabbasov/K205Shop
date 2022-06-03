@@ -2,6 +2,8 @@
 using Business.Constants;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +30,8 @@ namespace WebAPI.Controllers
 
             return Ok(new { status = 200, message = products });
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("productlist")]
         public IActionResult ProductList()
         {
@@ -45,6 +49,7 @@ namespace WebAPI.Controllers
             return Ok(new {status = 200, message = product});
         }
 
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("add")]
         public IActionResult AddProduct(AddProductDTO product)
         {
