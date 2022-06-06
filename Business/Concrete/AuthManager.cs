@@ -23,9 +23,18 @@ namespace Business.Concrete
             _hashingHandler = hashingHandler;
         }
 
-        public void Login(LoginDTO model)
+        public K205User Login(string email)
         {
-            throw new NotImplementedException();
+            var user = _authDal.Get(x => x.Email == email);
+            if (user == null)
+                return null;
+
+            return user;
+        }
+
+        public List<K205User> GetUsers()
+        {
+            return _authDal.GetAll();
         }
 
         public void Register(RegisterDTO model)

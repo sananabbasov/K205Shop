@@ -22,7 +22,7 @@ namespace Core.Security.TokenHandler
         public string Token(K205User user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jWTConfig.Key);
+            var key = Encoding.ASCII.GetBytes("aqwertyuiopsadfghjklxcvbnmasdfghjkwertyukj");
 
             var tokenDescription = new SecurityTokenDescriptor
             {

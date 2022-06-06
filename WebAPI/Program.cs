@@ -3,6 +3,7 @@ using Business.Concrete;
 using Core.Entity.Models;
 using Core.Security.Hasing;
 using Core.Security.Models;
+using Core.Security.TokenHandler;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -58,7 +59,17 @@ builder.Services.AddScoped<IProductPictureManager, ProductPictureManager>();
 builder.Services.AddScoped<IAuthDal, AuthDal>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 
+builder.Services.AddScoped<IRoleDal, RoleDal>();
+builder.Services.AddScoped<IRoleMananger, RoleManager>();
+
+builder.Services.AddScoped<IUserRoleDal, UserRoleDal>();    
+builder.Services.AddScoped<IUserRoleManager, UserRoleManager>();
+
 builder.Services.AddScoped<HashingHandler>();
+
+
+builder.Services.AddScoped<TokenGenerator>();
+builder.Services.AddScoped<JWTConfig>();
 
 
 //builder.Services.AddDefaultIdentity<K205User>().AddRoles<IdentityRole>()
