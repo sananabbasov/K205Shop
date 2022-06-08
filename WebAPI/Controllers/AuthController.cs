@@ -38,8 +38,10 @@ namespace WebAPI.Controllers
 
             if (user.Email == model.Email && user.Password == _hashingHandler.PasswordHash(model.Password))
             {
+
+                var role = _roleMananger.GetRole(user.Id);
                 var resultUser = new UserDTO(user.FullName, user.Email);
-                resultUser.Token = _tokenGenerator.Token(user);
+                resultUser.Token = _tokenGenerator.Token(user, role.Name);
 
                 return Ok(new { status = 200, message = resultUser});
             }
@@ -51,6 +53,12 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
+            var user = _authManager.GetUserByEmail(model.Email);
+
+            if (user != null)
+            {
+                return Ok("Email is exist.");
+            }
             _authManager.Register(model);
 
             return Ok("Okeydi.");

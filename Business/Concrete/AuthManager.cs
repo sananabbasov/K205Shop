@@ -49,5 +49,10 @@ namespace Business.Concrete
             };
             _authDal.Add(user);
         }
+
+        public K205User GetUserByEmail(string email)
+        {
+            return _authDal.Get(x => x.Email == email);
+        }
     }
 }
