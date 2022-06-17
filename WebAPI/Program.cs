@@ -74,6 +74,9 @@ builder.Services.AddScoped<IRoleMananger, RoleManager>();
 builder.Services.AddScoped<IUserRoleDal, UserRoleDal>();    
 builder.Services.AddScoped<IUserRoleManager, UserRoleManager>();
 
+builder.Services.AddScoped<IOrderDal, OrderDal>();
+builder.Services.AddScoped<IOrderManager, OrderManager>();
+
 builder.Services.AddScoped<HashingHandler>();
 
 

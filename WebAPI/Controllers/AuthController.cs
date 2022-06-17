@@ -64,6 +64,14 @@ namespace WebAPI.Controllers
             return Ok("Okeydi.");
         }
 
+        [HttpGet("getbyemail")]
+        public async Task<object> GetByEmail(string email)
+        {
+            var user = _authManager.GetUserByEmail(email);
+            var result = new UserDTO(user.FullName, user.Email);
+            return Ok(result);
+        }
+
 
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Authorize(Roles = "Admin")]

@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
             return Ok(new { status = 200, message = products });
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        
         [HttpGet("productlist")]
         public IActionResult ProductList()
         {
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
             return Ok(new {status = 200, message = product});
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
         [HttpPost("add")]
         public IActionResult AddProduct(AddProductDTO product)
         {
