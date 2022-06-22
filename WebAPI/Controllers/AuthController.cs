@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             {
 
                 var role = _roleMananger.GetRole(user.Id);
-                var resultUser = new UserDTO(user.FullName, user.Email);
+                var resultUser = new UserDTO(user.Id,user.FullName, user.Email);
                 resultUser.Token = _tokenGenerator.Token(user, role.Name);
 
                 return Ok(new { status = 200, message = resultUser});
@@ -66,6 +66,7 @@ namespace WebAPI.Controllers
             return Ok("Okeydi.");
         }
 
+        [Authorize]
         [HttpGet("getbyemail")]
         public async Task<object> GetByEmail()
         {
@@ -73,8 +74,9 @@ namespace WebAPI.Controllers
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(_bearer_token);
             var email = jwtSecurityToken.Claims.FirstOrDefault(x => x.Type == "email").Value;
+
             var user = _authManager.GetUserByEmail(email);
-            var result = new UserDTO(user.FullName, user.Email);
+            var result = new UserDTO(user.Id,user.FullName, user.Email);
             return Ok(result);
         }
 
