@@ -44,5 +44,13 @@ namespace WebAPI.Controllers
 
 
         }
+
+
+        [HttpGet("userorders/{userId}")]
+        public async Task<IActionResult> UserOrder(int userId)
+        {
+            var order = _orderManager.GetAll(userId);
+            return Ok(new { status = 200, message = order });
+        }
     }
 }

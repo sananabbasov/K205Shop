@@ -34,7 +34,7 @@ namespace Core.Security.TokenHandler
                     new System.Security.Claims.Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new System.Security.Claims.Claim(ClaimTypes.Role, role),
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(50),
+                Expires = DateTime.UtcNow.AddDays(50),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature),
                 Audience = "ComparAcademy",

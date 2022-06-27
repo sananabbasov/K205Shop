@@ -59,11 +59,11 @@ namespace WebAPI.Controllers
 
             if (user != null)
             {
-                return Ok("Email is exist.");
+                return Ok(new { status = 201, message = "Email is exist."});
             }
             _authManager.Register(model);
 
-            return Ok("Okeydi.");
+            return Ok(new {status= 200, message = "Okey"});
         }
 
         [Authorize]

@@ -9,5 +9,6 @@ namespace Business.Abstract
 {
     public interface IUserRoleManager
     {
+        void AddDefaultRole(int userId);
     }
 }

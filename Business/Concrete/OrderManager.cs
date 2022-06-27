@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         public List<Order> GetAll(int userId)
         {
-            throw new NotImplementedException();
+            return _orderDal.GetAll(x=>x.K205UserId == userId);
         }
 
         public Order GetOrderById(int id)
