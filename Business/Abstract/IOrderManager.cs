@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Business.Abstract
         void Remove(Order order);
         void Update(Order order);
         Order GetOrderById(int id);
-        List<Order> GetAll(int userId);
+        List<OrderDTO> GetAll(int userId);
     }
 }

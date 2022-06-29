@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,10 @@ namespace Business.Concrete
             _orderDal.Add(order);
         }
 
-        public List<Order> GetAll(int userId)
+        public List<OrderDTO> GetAll(int userId)
         {
-            return _orderDal.GetAll(x=>x.K205UserId == userId);
+
+            return _orderDal.GetUserOrders(userId);
         }
 
         public Order GetOrderById(int id)
