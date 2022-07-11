@@ -60,5 +60,12 @@ namespace Business.Concrete
         {
             return _productDal.FindById(id);
         }
+
+        public void UpdateProduct(AddProductDTO product, int id)
+        {
+            var current = _productDal.Get(x => x.Id == id);
+            current.Name = product.Name;
+            _productDal.Update(current);
+        }
     }
 }

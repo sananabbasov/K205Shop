@@ -14,5 +14,6 @@ namespace Business.Abstract
         List<ProductDTO> GetAllProductList();
         ProductDTO GetProductById(int id);
         void AddProduct(AddProductDTO product);
+        void UpdateProduct(AddProductDTO product, int id);
     }
 }
