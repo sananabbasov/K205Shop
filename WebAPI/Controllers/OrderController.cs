@@ -53,5 +53,28 @@ namespace WebAPI.Controllers
             var order = _orderManager.GetAll(userId);
             return Ok(new { status = 200, message = order });
         }
+
+
+
+        [HttpGet("allorders")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            var order = _orderManager.GetAllOrders();
+            return Ok(new { status = 200, message = order });
+        }
+
+
+        [HttpPost("updatetracking/{productId}")]
+        public async Task<IActionResult> UpdateTracking(int productId, int trackId)
+        {
+
+            var data = _orderManager.GetOrderById(productId);
+            data.OrderTrackingId = trackId;
+            _orderManager.Update(data);
+
+            return Ok(new { status = 200, message = "Yenilendi." });
+        }
+
+
     }
 }

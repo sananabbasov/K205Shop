@@ -30,9 +30,14 @@ namespace Business.Concrete
             return _orderDal.GetUserOrders(userId);
         }
 
+        public List<OrderDTO> GetAllOrders()
+        {
+            return _orderDal.GetAllOrders();
+        }
+
         public Order GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            return _orderDal.Get(x => x.Id == id);
         }
 
         public void Remove(Order order)
@@ -42,7 +47,7 @@ namespace Business.Concrete
 
         public void Update(Order order)
         {
-            throw new NotImplementedException();
+            _orderDal.Update(order);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace Business.Abstract
         void Update(Order order);
         Order GetOrderById(int id);
         List<OrderDTO> GetAll(int userId);
+        List<OrderDTO> GetAllOrders();
     }
 }

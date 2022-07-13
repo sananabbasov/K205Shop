@@ -13,6 +13,36 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class OrderDal : EfEntityRepositoryBase<Order, ShopDbContext>, IOrderDal
     {
+        public List<OrderDTO> GetAllOrders()
+        {
+            using var context = new ShopDbContext();
+
+            var orders = context.Order.Include(x=>x.Product).Include(x => x.OrderTracking).ToList();
+            
+            List<OrderDTO> result = new();
+
+            foreach (var order in orders)
+            {
+                OrderDTO orderDTO = new()
+                {
+                    Id = order.Id,
+                    IsDelivered = order.IsDelivered,
+                    K205UserId = order.K205UserId,
+                    OrderTrackingId = order.OrderTrackingId,
+                    ProductId = order.ProductId,
+                    ProductName = order.Product.Name,
+                    Status = order.OrderTracking.Name,
+                    TotalPrice = order.TotalPrice,
+                    TotalQuantity = order.TotalQuantity,
+                    SKU = order.Product.SKU
+                };
+                result.Add(orderDTO);
+            }
+
+            return result;
+
+        }
+
         public List<OrderDTO> GetUserOrders(int userId)
         {
             using var context = new ShopDbContext();
@@ -40,5 +70,7 @@ namespace DataAccess.Concrete.EntityFramework
 
             return list;
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,26 @@ namespace Business.Concrete
 {
     public class OrderTrackingManager : IOrderTrackingManager
     {
+        private readonly IOrderTrackingDal _trackingDal;
+
+        public OrderTrackingManager(IOrderTrackingDal trackingDal)
+        {
+            _trackingDal = trackingDal;
+        }
+
         public void Add(OrderTracking orderTracking)
         {
             throw new NotImplementedException();
         }
 
+        public List<OrderTracking> GetAll()
+        {
+            return _trackingDal.GetAll();
+        }
+
         public OrderTracking GetOrderTrackingById(int id)
         {
-            throw new NotImplementedException();
+            return _trackingDal.Get(x=>x.Id == id);
         }
 
         public void Remove(OrderTracking orderTracking)
